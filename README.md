@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SmartAttend - Enterprise Attendance Management System
 
 A production-ready, enterprise-grade web-based Attendance Management System inspired by Microsoft Forms, built with React, Supabase, and Clerk.
@@ -91,3 +92,6 @@ VITE_SUPABASE_ANON_KEY=eyJhbGci...
 - **Backend Logic**: Heavy lifting (validation, processing) is offloaded to Supabase Edge Functions for security and performance.
 - **Database**: PostgreSQL with strict RLS policies to ensure data isolation between departments.
 - **Logging**: Every action is recorded in the `audit_logs` table via database triggers.
+=======
+# Smart-Attendance
+>>>>>>> 35589d71b57ab6959ccd038a2cc6d44549f35690
