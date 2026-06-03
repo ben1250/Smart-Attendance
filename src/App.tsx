@@ -9,7 +9,7 @@ function App() {
   return (
     <Routes>
       <Route
-        path="/login"
+        path="/login/*"
         element={
           <div className="min-h-screen flex items-center justify-center bg-gray-50">
             <SignedOut>
@@ -22,7 +22,7 @@ function App() {
         }
       />
       <Route
-        path="/register"
+        path="/register/*"
         element={
           <div className="min-h-screen flex items-center justify-center bg-gray-50">
             <SignedOut>
