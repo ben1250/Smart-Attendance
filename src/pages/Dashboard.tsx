@@ -47,7 +47,7 @@ export default function Dashboard({ role }: { role: 'admin' | 'department' | 'su
       .on(
         'postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'attendance_records' },
-        (payload) => {
+        () => {
           setRealtimeCount(prev => prev + 1);
         }
       )

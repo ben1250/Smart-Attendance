@@ -1,6 +1,6 @@
 import { UserButton, useUser } from "@clerk/clerk-react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { LayoutDashboard, ClipboardCheck, BarChart3, Settings, PlusCircle } from "lucide-react";
+import { LayoutDashboard, ClipboardCheck, BarChart3, PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Layout() {

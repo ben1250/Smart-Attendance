@@ -45,11 +45,11 @@ export default function AttendanceForm() {
   });
 
   // Autofill Query: Get last submission by device fingerprint or email
-  const { data: lastProfile } = useQuery({
+  useQuery({
     queryKey: ['last-submission', user?.id],
     queryFn: async () => {
       const fingerprint = `${navigator.userAgent}-${window.screen.width}x${window.screen.height}`;
-      const { data, error } = await supabase
+      const { data } = await supabase
         .from('attendance_records')
         .select('full_name, email, phone_number, role, department_id')
         .or(`email.eq.${user?.primaryEmailAddress?.emailAddress},device_fingerprint.eq.${fingerprint}`)
@@ -95,11 +95,11 @@ export default function AttendanceForm() {
     setStatus(null);
     try {
       // Call Supabase Edge Function
-      const { data: response, error } = await supabase.functions.invoke('submit-attendance', {
+      const { data: response, error: invokeError } = await supabase.functions.invoke('submit-attendance', {
         body: data,
       });
 
-      if (error) throw error;
+      if (invokeError) throw invokeError;
       
       setStatus({ type: 'success', message: response.message || 'Attendance recorded!' });
     } catch (err: any) {
