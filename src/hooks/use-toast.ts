@@ -183,4 +183,5 @@ function useToast() {
   }
 }
 
+export type { ToastProps, ToastActionElement }
 export { useToast, toast }
