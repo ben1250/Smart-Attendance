@@ -47,11 +47,48 @@ CREATE TABLE attendance_records (
 -- Create wifi_configurations table
 CREATE TABLE wifi_configurations (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    department_id UUID REFERENCES departments(id) ON DELETE CASCADE,
+    department_id UUID REFERENCES departments(id) ON DELETE CASCADE UNIQUE, -- Added UNIQUE for upsert
     allowed_ssid TEXT NOT NULL,
     active BOOLEAN DEFAULT true,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Attendance Forms Table
+CREATE TABLE attendance_forms (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    creator_id UUID REFERENCES users(id),
+    department_id UUID REFERENCES departments(id),
+    title TEXT NOT NULL,
+    description TEXT,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Attendance Records Update
+ALTER TABLE attendance_records ADD COLUMN form_id UUID REFERENCES attendance_forms(id);
+ALTER TABLE attendance_records ADD COLUMN full_name TEXT;
+ALTER TABLE attendance_records ADD COLUMN email TEXT;
+ALTER TABLE attendance_records ADD COLUMN phone_number TEXT;
+ALTER TABLE attendance_records ADD COLUMN role TEXT;
+
+-- RLS for Attendance Forms
+ALTER TABLE attendance_forms ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Supervisors can manage their own forms" ON attendance_forms
+    FOR ALL USING (
+        EXISTS (
+            SELECT 1 FROM users 
+            WHERE clerk_user_id = auth.uid()::text 
+            AND (role IN ('super_admin', 'department_supervisor'))
+        )
+    );
+
+CREATE POLICY "Anyone can read active forms" ON attendance_forms
+    FOR SELECT USING (is_active = true);
+
+-- Audit Logs update
+ALTER TABLE audit_logs ADD COLUMN role TEXT;
+
 
 -- Create audit_logs table
 CREATE TABLE audit_logs (
