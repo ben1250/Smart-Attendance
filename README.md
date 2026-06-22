@@ -78,14 +78,6 @@ The warning about "development keys" appears because you are currently using a `
    supabase secrets set CLERK_SECRET_KEY=sk_live_...
    ```
 
-### 3. Environment Variables Strategy
-Use a `.env.production` file for production-specific keys:
-```env
-VITE_CLERK_PUBLISHABLE_KEY=pk_live_...
-VITE_SUPABASE_URL=https://your-prod-project.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGci...
-```
-
 ## Architecture
 
 - **Frontend**: Single Page Application (SPA) with protected routes.
