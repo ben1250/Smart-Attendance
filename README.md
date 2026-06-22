@@ -31,16 +31,6 @@ A production-ready, enterprise-grade web-based Attendance Management System insp
 - Supabase Project
 - Clerk Project
 
-### Environment Variables
-
-Create a `.env.local` file in the root directory:
-
-```env
-VITE_CLERK_PUBLISHABLE_KEY=your_clerk_pub_key
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
-
 ### Database Setup
 
 1. Run the SQL provided in `supabase_schema.sql` in your Supabase SQL Editor.
